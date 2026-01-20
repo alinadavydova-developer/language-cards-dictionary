@@ -21,12 +21,22 @@ repositories {
 }
 
 dependencies {
+    //DB
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.liquibase:liquibase-core:4.33.0")
+    runtimeOnly("org.postgresql:postgresql")
+
+    //SECURITY
     implementation("org.springframework.boot:spring-boot-starter-security")
+
+    //WEB
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    //KOTLIN
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    runtimeOnly("org.postgresql:postgresql")
+
+    //TEST
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
@@ -47,4 +57,13 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// Ресурсы
+sourceSets.main {
+    resources.srcDirs("src/main/resources", "src/main/liquibase")
+}
+
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

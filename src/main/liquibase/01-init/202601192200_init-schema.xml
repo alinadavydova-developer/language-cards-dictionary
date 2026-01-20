@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="01-init/202601192200_init-schema.xml"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="202601192200" author="User: AlinaDavydova Email: alina.k.91@icloud.com" context="schema">
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS dictionary;
+        </sql>
+        <comment>
+            Создание начальной структуры БД
+        </comment>
+    </changeSet>
+</databaseChangeLog>

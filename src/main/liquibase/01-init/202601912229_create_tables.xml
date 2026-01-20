@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="01-init/202601912229_create_tables.xml"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="202601912229" author="User: AlinaDavydova Email: alina.k.91@icloud.com" context="schema">
+        <sql>
+            CREATE TABLE IF NOT EXISTS word_eng
+            (
+                id   uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                word VARCHAR(100) NOT NULL,
+                CONSTRAINT word_eng_word_unique UNIQUE (word)
+                );
+
+            CREATE TABLE IF NOT EXISTS audio
+            (
+                id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                word_id     uuid NOT NULL ,
+                file_path   VARCHAR(255) NOT NULL,
+                file_source VARCHAR(255) NOT NULL,
+                FOREIGN KEY (word_id) REFERENCES word_eng (id) ON DELETE CASCADE ON UPDATE CASCADE,
+                UNIQUE (file_path)
+                );
+
+            CREATE TABLE IF NOT EXISTS transcription
+            (
+                id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                word_id       uuid NOT NULL,
+                transcription VARCHAR(255) NOT NULL,
+                dialect       VARCHAR(10)  NOT NULL,
+                FOREIGN KEY (word_id) REFERENCES word_eng (id) ON DELETE CASCADE ON UPDATE CASCADE
+                );
+        </sql>
+        <comment>
+            Создание начальной структуры БД
+        </comment>
+    </changeSet>
+</databaseChangeLog>
