@@ -1,12 +1,7 @@
 spring:
   application:
     name: lc-dictionary
-  datasource:
-    url: jdbc:postgresql://localhost:5432/dictionary
-    username: postgres
-    password: 1234
-    driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/root-changelog.xml
-server:
-  port: 8082
+  profiles:
+    active: "dev"
