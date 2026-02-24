@@ -31,10 +31,13 @@ dependencies {
 
     //WEB
     implementation("org.springframework.boot:spring-boot-starter-web")
+    // Обязательно для поддержки suspend функций в Spring MVC
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     //KOTLIN
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
     //TEST
     testImplementation("org.springframework.boot:spring-boot-starter-test")
