@@ -6,3 +6,13 @@ spring:
     driver-class-name: org.postgresql.Driver
 server:
   port: 8082
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus # Включаем нужные endpoint'ы
+      base-path: /actuator
+  prometheus:
+    metrics:
+      export:
+        enabled: true
