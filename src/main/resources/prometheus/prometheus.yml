@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s # Как часто Prometheus будет опрашивать ваше приложение [citation:6]
+
+scrape_configs:
+  - job_name: 'spring-boot-app' # Название нашего "места работы"
+    metrics_path: '/actuator/prometheus' # Адрес, по которому отдаются метрики [citation:6]
+    static_configs:
+      - targets: ['host.docker.internal:8082']
+        # такой же порт как и для самого приложения
+        # 'host.docker.internal' позволяет контейнеру обратиться к хосту, где запущено ваше приложение.

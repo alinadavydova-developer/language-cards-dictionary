@@ -44,6 +44,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // METRICS
+    implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    // Для поддержки корутин в метриках (опционально, но рекомендуется)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 }
 
 kotlin {
