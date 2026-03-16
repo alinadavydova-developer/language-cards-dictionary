@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        logicalFilePath="02-add_tables/202603161724_create_table_card_and_translation.xml"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="202603161724" author="User: AlinaDavydova Email: alina.k.91@icloud.com" context="schema">
+        <sql>
+            CREATE TABLE IF NOT EXISTS translation
+            (
+                id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                word_id     uuid         NOT NULL,
+                translation VARCHAR(255) NOT NULL,
+                FOREIGN KEY (word_id) REFERENCES word_eng (id) ON DELETE CASCADE ON UPDATE CASCADE,
+                UNIQUE (translation)
+                );
+
+            CREATE TABLE IF NOT EXISTS card
+            (
+                id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                word_id          uuid NOT NULL,
+                translation_id   uuid NOT NULL,
+                transcription_id uuid,
+                audio_id         uuid,
+                CONSTRAINT card_unique UNIQUE (word_id, transcription_id, audio_id),
+                FOREIGN KEY (word_id) REFERENCES word_eng (id) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (audio_id) REFERENCES audio (id) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (transcription_id) REFERENCES transcription (id) ON DELETE CASCADE ON UPDATE CASCADE,
+                FOREIGN KEY (translation_id) REFERENCES translation (id) ON DELETE CASCADE ON UPDATE CASCADE
+                );
+        </sql>
+        <comment>
+            Создание начальной структуры БД
+        </comment>
+    </changeSet>
+</databaseChangeLog>
